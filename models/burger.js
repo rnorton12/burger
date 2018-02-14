@@ -1,15 +1,24 @@
+// Import the ORM to create functions that will interact with the database.
 var orm = require("../config/orm.js");
 
-// // Console log all the party_name's.
-// orm.select("*", "parties");
+var burger = {
+    selectAll: function(cb) {
+    orm.selectAll("burgers", function(res) {
+      cb(res);
+    });
+  },
+  // The variables cols and vals are arrays.
+  insertOne: function(cols, vals, cb) {
+    orm.insertOne("burgers", cols, vals, function(res) {
+      cb(res);
+    });
+  },
+  update: function(objColVals, condition, cb) {
+    orm.update("burgers", objColVals, condition, function(res) {
+      cb(res);
+    });
+  }
+};
 
-// // Console log all the client_name's.
-// orm.select("client_name", "clients");
-
-// // Console log all the parties that have a party-type of grown-up.
-// orm.selectWhere("parties", "party_type", "grown-up");
-
-// // Console log all the clients and their parties.
-// orm.leftJoin("*", "clients", "parties", "id", "client_id");
-
-// need to export something here
+// Export the database functions for the controller (burgersController.js).
+module.exports = burger;

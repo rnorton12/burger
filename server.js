@@ -1,18 +1,27 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 
-var methodOverride = require('method-override');
 var app = express();
-var port = 3000;
+var PORT = process.env.PORT || 3000;
 
-// override with the X-HTTP-Method-Override header in the request
-app.use(methodOverride('X-HTTP-Method-Override'));
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Set Handlebars.
 var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+var routes = require("./controllers/burgers_controller.js");
+
+app.use(routes);
+
+app.listen(PORT, function() {
+  console.log("App now listening at localhost:" + PORT);
+});
