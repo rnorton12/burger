@@ -1,2 +1,91 @@
-Setup the index.handlebars to have the template that Handlebars can render onto.
-Create a button in index.handlebars that will submit the user input into the database.
+<h1>Burgers</h1>
+
+<ul>
+  {{#each burgers}}
+  <li>
+    <p>
+      {{this.id}}. {{this.burger_name}}
+
+      <button data-burgerid="{{this.id}}" class="devour-burger">devour</button>
+    </p>
+  </li>
+  {{/each}}
+</ul>
+
+<h2>Create a Burger</h2>
+<form id="createburger" class="button-size">
+  <textarea type="text" name="burger"></textarea>
+  <button type="submit">Save Burger!</button>
+</form>
+
+<!--
+<h2>Update a Plan</h2>
+<form id="updateplan" class="button-size">
+  <select name="id">
+		{{#each plans}}
+			<option value="{{this.id}}">{{this.plan}}</option>
+		{{/each}}
+	</select>
+  <textarea type="text" name="plan" placeholder="plan"></textarea>
+  <button type="submit">Update Plan!</button>
+</form>
+-->
+<script type="text/javascript">
+  $(".devour-burger").on("click", function(event) {
+    var id = $(this).data("burgerid");
+    // Send the DELETE request.
+    $.ajax("/todos/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
+        console.log("deleted id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $("#createburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+ cosole.log("new burger: " + burger_name);
+    var newBurger = {
+      burger: $("#createburger [burger_name=burger]").val().trim()
+    };
+    cosole.log("new burger: " + burger_name);
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("created new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $("#updateplan").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var id = $("[name=id]").val().trim();
+
+    var updatedPlan = {
+      plan: $("#updateplan [name=plan]").val().trim()
+    };
+
+    // Send the PUT request.
+    $.ajax("/todos/" + id, {
+      type: "PUT",
+      data: updatedPlan
+    }).then(
+      function() {
+        console.log("updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+</script>

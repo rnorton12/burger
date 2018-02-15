@@ -12,13 +12,16 @@ router.get("/", function(req, res) {
       burgers: data
     };
     console.log(hbsObject);
- //   res.render("index", hbsObject);
+    res.render("index", hbsObject);
   });
 });
 
 router.post("/api/burgers", function(req, res) {
-  burger.insertOne(["burger_name", "devoured"], [req.body.burger_name, req.body.devoured], function(result) {
+  console.log("insert-one");
+  burger.insertOne(["burger_name"], [req.body.burger_name], function(result) {
     // Send back the ID of the new burger
+    console.log(req.body);
+    console.log("inserting");
     res.json({ id: result.insertId });
   });
 });
