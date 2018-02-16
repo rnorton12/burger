@@ -1,38 +1,18 @@
-<h1>Burgers</h1>
+<h1>Eat a Burger</h1>
 
-<h2>Burgers not Devoured!</h2>
-
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-      {{> burgers/burger-block devoured=true}}
-    {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>Burgers Devoured!</h2>
-
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
-      {{> burgers/burger-block devoured=false}}
-    {{/if}}
-  {{/each}}
-</ul>
-
-<ul>
-  {{#each burgers}}
-  <li>
-    <p>
-      {{this.id}}. {{this.burger_name}}
-
-      <button data-burgerid="{{this.id}}" class="devour-burger">devour</button>
-    </p>
-  </li>
-  {{/each}}
-</ul>
-
-<h2>Add a Burger</h2>
+<div class="row">
+  <div class="col-md-4">
+    <h2>Burgers not Devoured!</h2>
+  <ol>
+    {{#each burgers}}
+      {{#unless devoured}}
+        {{> burgers/burger-block devoured=true}}
+      {{/unless}}
+    {{/each}}
+  </ol>
+</div>
+<div class="col-md-4">
+  <img src="/assets/img/burger.gif" class="img-fluid ml-4" alt="Burger Gif" width="50px" height="50px"/>
 <form class="create-form">
 
   <div class="form-group">
@@ -42,16 +22,19 @@
   <button type="submit">Add Burger</button>
 </form>
 
-<!--
-<h2>Update a Plan</h2>
-<form id="updateplan" class="button-size">
-  <select name="id">
-		{{#each plans}}
-			<option value="{{this.id}}">{{this.plan}}</option>
-		{{/each}}
-	</select>
-  <textarea type="text" name="plan" placeholder="plan"></textarea>
-  <button type="submit">Update Plan!</button>
-</form>
--->
+</div>
+<div class="col-md-4">
+<h2>Burgers Devoured!</h2>
+
+<ol>
+  {{#each burgers}}
+    {{#if devoured}}
+      {{> burgers/burger-block devoured=false}}
+    {{/if}}
+  {{/each}}
+</ol>
+</div>
+
+
+
 
