@@ -17,7 +17,6 @@ if (process.env.JAWSDB_URL) {
     database: 'todoagain_db'
   });
 };
-}
 
 connection.connect(function(err) {
   if (err) {
