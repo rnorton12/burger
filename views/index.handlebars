@@ -1,5 +1,25 @@
 <h1>Burgers</h1>
 
+<h2>Burgers not Devoured!</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#unless devoured}}
+      {{> burgers/burger-block devoured=true}}
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h2>Burgers Devoured!</h2>
+
+<ul>
+  {{#each burgers}}
+    {{#if devoured}}
+      {{> burgers/burger-block devoured=false}}
+    {{/if}}
+  {{/each}}
+</ul>
+
 <ul>
   {{#each burgers}}
   <li>
@@ -12,10 +32,14 @@
   {{/each}}
 </ul>
 
-<h2>Create a Burger</h2>
-<form id="createburger" class="button-size">
-  <textarea type="text" name="burger"></textarea>
-  <button type="submit">Save Burger!</button>
+<h2>Add a Burger</h2>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="bg">Burger Name:</label>
+    <input type="text" id="bg" name="name">
+  </div>
+  <button type="submit">Add Burger</button>
 </form>
 
 <!--
@@ -30,62 +54,4 @@
   <button type="submit">Update Plan!</button>
 </form>
 -->
-<script type="text/javascript">
-  $(".devour-burger").on("click", function(event) {
-    var id = $(this).data("burgerid");
-    // Send the DELETE request.
-    $.ajax("/todos/" + id, {
-      type: "DELETE"
-    }).then(
-      function() {
-        console.log("deleted id ", id);
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
-  });
 
-  $("#createburger").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event.
-    event.preventDefault();
- cosole.log("new burger: " + burger_name);
-    var newBurger = {
-      burger: $("#createburger [burger_name=burger]").val().trim()
-    };
-    cosole.log("new burger: " + burger_name);
-    // Send the POST request.
-    $.ajax("/api/burgers", {
-      type: "POST",
-      data: newBurger
-    }).then(
-      function() {
-        console.log("created new burger");
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
-  });
-
-  $("#updateplan").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event.
-    event.preventDefault();
-
-    var id = $("[name=id]").val().trim();
-
-    var updatedPlan = {
-      plan: $("#updateplan [name=plan]").val().trim()
-    };
-
-    // Send the PUT request.
-    $.ajax("/todos/" + id, {
-      type: "PUT",
-      data: updatedPlan
-    }).then(
-      function() {
-        console.log("updated id ", id);
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
-  });
-</script>
