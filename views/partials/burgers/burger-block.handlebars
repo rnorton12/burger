@@ -1,7 +1,16 @@
 <li>
 	{{burger_name}}
-
-	<button class="change-devoured" data-id="{{id}}" data-newdevoured="{{devoured}}">
-		{{#if devoured}}Devour this Burger!{{else}}Throw up this Burger!{{/if}}
+<!--
+	<button class="change-devoured bg-primary" data-id="{{id}}" data-newdevoured="{{devoured}}">
+		{{#if devoured}}Devour!{{else}}Throw up!{{/if}}
 	</button>
+-->
+
+	{{#if devoured}}
+	<button class="change-devoured bg-primary" data-id="{{id}}" data-newdevoured="{{devoured}}">Devour!
+	</button>
+	{{else}}
+	<button class="change-devoured bg-danger" data-id="{{id}}" data-newdevoured="{{devoured}}">Throw Up!
+	</button>
+	{{/if}}
 </li>

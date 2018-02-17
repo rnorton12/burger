@@ -1,40 +1,32 @@
-<h1>Eat a Burger</h1>
+<div class="row">
+  <div class="col-md-12 text-center my-3">
+    <h1>Eat a Burger</h1>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-4">
-    <h2>Burgers not Devoured!</h2>
-  <ol>
-    {{#each burgers}}
-      {{#unless devoured}}
-        {{> burgers/burger-block devoured=true}}
-      {{/unless}}
-    {{/each}}
-  </ol>
-</div>
-<div class="col-md-4">
-  <img src="/assets/img/burger.gif" class="img-fluid ml-4" alt="Burger Gif" width="50px" height="50px"/>
-<form class="create-form">
-
-  <div class="form-group">
-    <label for="bg">Burger Name:</label>
-    <input type="text" id="bg" name="name">
+    <h4>Burgers not Devoured!</h4>
+    <ol>
+      {{#each burgers}} {{#unless devoured}} {{> burgers/burger-block devoured=true}} {{/unless}} {{/each}}
+    </ol>
   </div>
-  <button type="submit">Add Burger</button>
-</form>
 
-</div>
-<div class="col-md-4">
-<h2>Burgers Devoured!</h2>
+  <div class="col-md-4 text-center">
+    <img src="/assets/img/burger.gif" class="img-fluid ml-4" alt="Burger Gif" width="200px" height="200px" />
+    <form class="create-form mt-3">
+      <div class="form-group">
+        <label class= "font-weight-bold" for="bg">Burger Name:</label>
+        <input type="text" id="bg" name="name">
+      </div>
+      <button class="bg-warning" type="submit">Add Burger</button>
+    </form>
 
-<ol>
-  {{#each burgers}}
-    {{#if devoured}}
-      {{> burgers/burger-block devoured=false}}
-    {{/if}}
-  {{/each}}
-</ol>
-</div>
+  </div>
+  <div class="col-md-4">
+    <h4>Burgers Devoured!</h4>
 
-
-
-
+    <ol>
+      {{#each burgers}} {{#if devoured}} {{> burgers/burger-block devoured=false}} {{/if}} {{/each}}
+    </ol>
+  </div>
